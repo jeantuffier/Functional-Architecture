@@ -1,0 +1,15 @@
+[versions]
+kotlin = "2.2.21"
+
+jvmToolchain = "24"
+junit = "6.0.1"
+koin = "4.1.0"
+
+[libraries]
+junit-bom = { module = "rg.junit:junit-bom", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter" }
+junit-jupiter-launcher = { module = "org.junit.platform:junit-platform-launcher" }
+koin = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+
+[plugins]
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
