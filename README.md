@@ -64,11 +64,10 @@ We finally come to the subject of dependency injection. One possible solution in
 partial application.
 
 ### Advantages:
-- Another new concept for developers.
-- Our code doesn't need to pass dependencies around anymore.
+- The method signatures become easier to understand.
 
 ### Disadvantages:
-- The method signatures become a bit more difficult to understand.
+- Another new concept for developers.
 
 ## 7. Context parameters
 We reach the final branch where we use this new feature from Kotlin. It's a subtle change but it helps quite a lot for 
