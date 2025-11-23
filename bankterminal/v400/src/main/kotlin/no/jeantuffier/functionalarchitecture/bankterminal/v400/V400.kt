@@ -6,10 +6,10 @@ import org.koin.dsl.module
 internal class V400Sdk
 
 internal class V400BankTerminal internal constructor(
-    private val openConnectionDelegate: OpenConnection,
-    private val payDelegate: Pay,
-    private val closeSettlementDelegate: CloseSettlement,
-    private val closeConnectionDelegate: CloseConnection,
+    private val openConnectionDelegate: () -> V400Sdk,
+    private val payDelegate: (V400Sdk, Int) -> Unit,
+    private val closeSettlementDelegate: (V400Sdk) -> Unit,
+    private val closeConnectionDelegate: (V400Sdk) -> Unit,
 ) : BankTerminal {
 
     private var sdkInstance: V400Sdk? = null
@@ -34,10 +34,10 @@ internal class V400BankTerminal internal constructor(
 val v400Module = module {
     factory<BankTerminal> {
         V400BankTerminal(
-            openConnectionDelegate = OpenConnection(),
-            payDelegate = Pay(),
-            closeSettlementDelegate = CloseSettlement(),
-            closeConnectionDelegate = CloseConnection(),
+            openConnectionDelegate = ::openConnection,
+            payDelegate = ::pay,
+            closeSettlementDelegate = ::closeSettlement,
+            closeConnectionDelegate = ::closeConnection,
         )
     }
 }
