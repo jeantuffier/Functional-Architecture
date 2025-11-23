@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation(project(":bankterminal"))
+    implementation(libs.arrow)
     implementation(libs.koin)
 
     testImplementation(platform(libs.junit.bom))

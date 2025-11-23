@@ -1,35 +1,60 @@
 package no.jeantuffier.functionalarchitecture.bankterminal.v400
 
+import arrow.core.Either
+import no.jeantuffier.functionalarchitecture.bankterminal.Amount
 import no.jeantuffier.functionalarchitecture.bankterminal.BankTerminal
 import no.jeantuffier.functionalarchitecture.bankterminal.Logger
 import org.koin.dsl.module
 
 internal class V400Sdk
 
+internal sealed interface V400Error
+
+internal typealias OpenConnectionDelegate = (Logger) -> Either<V400Error, V400Sdk>
+internal typealias PayDelegate = (Logger, V400Sdk, Amount) -> Either<V400Error, Unit>
+internal typealias CloseCommand = (Logger, V400Sdk) -> Either<V400Error, Unit>
+
 internal class V400BankTerminal internal constructor(
     private val logger: Logger,
-    private val openConnectionDelegate: (Logger) -> V400Sdk,
-    private val payDelegate: (Logger, V400Sdk, Int) -> Unit,
-    private val closeSettlementDelegate: (Logger, V400Sdk) -> Unit,
-    private val closeConnectionDelegate: (Logger, V400Sdk) -> Unit,
+    private val openConnectionDelegate: OpenConnectionDelegate,
+    private val payDelegate: PayDelegate,
+    private val closeSettlementDelegate: CloseCommand,
+    private val closeConnectionDelegate: CloseCommand,
 ) : BankTerminal {
 
     private var sdkInstance: V400Sdk? = null
 
     override fun openConnection() {
-        sdkInstance = openConnectionDelegate(logger)
+        openConnectionDelegate(logger)
+            .onRight {
+                sdkInstance = it
+                logger.info("Connection established")
+            }
+            .onLeft { logger.error("failed to initialise") }
     }
 
-    override fun pay(amount: Int) {
-        sdkInstance?.let { payDelegate(logger, it, amount) }
+    override fun pay(amount: Amount) {
+        sdkInstance?.let {
+            payDelegate(logger, it, amount)
+                .onRight { logger.info("Transaction completed") }
+                .onLeft { logger.error("Transaction failed") }
+        }
     }
 
     override fun closeSettlement() {
-        sdkInstance?.let { closeSettlementDelegate(logger, it) }
+        sdkInstance?.let {
+            closeSettlementDelegate(logger, it)
+                .onRight { logger.info("Settlement closed") }
+                .onLeft { logger.error("Failed to close settlement") }
+        }
     }
 
     override fun closeConnection() {
-        sdkInstance?.let { closeConnectionDelegate(logger, it) }
+        sdkInstance?.let {
+            closeConnectionDelegate(logger, it)
+                .onRight { logger.info("Connection closed") }
+                .onLeft { logger.error("Failed to close connection") }
+        }
     }
 }
 

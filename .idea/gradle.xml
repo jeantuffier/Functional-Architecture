@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/bankterminal" />
+            <option value="$PROJECT_DIR$/bankterminal/v400" />
           </set>
         </option>
       </GradleProjectSettings>

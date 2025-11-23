@@ -1,5 +1,6 @@
 package no.jeantuffier.functionalarchitecture
 
+import no.jeantuffier.functionalarchitecture.bankterminal.Amount
 import no.jeantuffier.functionalarchitecture.bankterminal.BankTerminal
 import no.jeantuffier.functionalarchitecture.bankterminal.Logger
 import no.jeantuffier.functionalarchitecture.bankterminal.v400.v400Module
@@ -36,7 +37,7 @@ class FancyApp : KoinComponent {
 
     fun run() {
         bankTerminal.openConnection()
-        bankTerminal.pay(100)
+        bankTerminal.pay(Amount(100))
         bankTerminal.closeSettlement()
         bankTerminal.closeConnection()
     }
