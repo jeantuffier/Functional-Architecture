@@ -3,7 +3,8 @@ package no.jeantuffier.functionalarchitecture.bankterminal.v400
 import arrow.core.right
 import no.jeantuffier.functionalarchitecture.bankterminal.Logger
 
-internal fun pay(logger: Logger): PayDelegate = { instance, amount ->
+context(logger: Logger)
+internal fun pay(): PayDelegate = { instance, amount ->
     /**
      * This assumes we use the instance to interact with the bank terminal
      */

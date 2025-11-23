@@ -60,12 +60,14 @@ internal class V400BankTerminal internal constructor(
 
 val v400Module = module {
     single<BankTerminal> {
-        V400BankTerminal(
-            logger = get(),
-            openConnectionDelegate = openConnection(get()),
-            payDelegate = pay(get()),
-            closeSettlementDelegate = closeSettlement(get()),
-            closeConnectionDelegate = closeConnection(get()),
-        )
+        context(get<Logger>()) {
+            V400BankTerminal(
+                logger = get(),
+                openConnectionDelegate = openConnection,
+                payDelegate = pay(),
+                closeSettlementDelegate = closeSettlement,
+                closeConnectionDelegate = closeConnection,
+            )
+        }
     }
 }

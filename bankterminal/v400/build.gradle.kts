@@ -25,4 +25,7 @@ tasks.test {
 
 kotlin {
     jvmToolchain(libs.versions.jvmToolchain.get().toInt())
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
 }

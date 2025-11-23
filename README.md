@@ -75,6 +75,7 @@ ease of reading in our situation.
 
 ### Advantages:
 - We can extract dependencies from the method signature.
+- Parameters don't need to be passed around anymore.
 
 ### Disadvantages:
 - We need to use the `context` method to propagate dependencies.
