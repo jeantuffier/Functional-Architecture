@@ -1,6 +1,6 @@
 # Functional Architecture
 The project is constructed around several branches, starting with main, to demonstrate how one can create a functional 
-architecture for its program. Each building on the previous one, checkout all of them until "7-context-parameters" to 
+architecture for it's program. Each building on the previous one, checkout all of them until "7-context-parameters" to 
 follow up the code refactoring progression. 
 
 ## Main branch

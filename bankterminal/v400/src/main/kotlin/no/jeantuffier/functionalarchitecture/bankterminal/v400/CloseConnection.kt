@@ -1,8 +1,10 @@
 package no.jeantuffier.functionalarchitecture.bankterminal.v400
 
-internal fun closeConnection(instance: V400Sdk) {
+import no.jeantuffier.functionalarchitecture.bankterminal.Logger
+
+internal fun closeConnection(logger: Logger, instance: V400Sdk) {
     /**
      * This assumes we use the instance to interact with the bank terminal
      */
-    println("Connection closed")
+    logger.info("Connection closed")
 }

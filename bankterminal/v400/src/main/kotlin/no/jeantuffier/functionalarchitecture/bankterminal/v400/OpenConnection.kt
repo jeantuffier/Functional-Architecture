@@ -1,7 +1,9 @@
 package no.jeantuffier.functionalarchitecture.bankterminal.v400
 
-internal fun openConnection(): V400Sdk {
+import no.jeantuffier.functionalarchitecture.bankterminal.Logger
+
+internal fun openConnection(logger: Logger): V400Sdk {
     // We do a bunch of initialisation thing and error handling here
-    println("Connection established")
+    logger.info("Connection established")
     return V400Sdk()
 }
